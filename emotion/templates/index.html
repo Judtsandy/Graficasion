@@ -17,7 +17,7 @@
         }
 
         #app {
-            width: 450px;
+            width: 700px; /* Ajustado para un tamaño mayor */
             padding: 20px;
             background-color: #333;
             border-radius: 10px;
@@ -62,24 +62,42 @@
             background-color: #008000;
         }
 
-        #results {
-            display: flex;
-            justify-content: space-between;
+        #results-section {
             margin-top: 20px;
         }
 
-        #results .image-container {
-            width: 200px;
-            height: 200px;
-            background-color: #444;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 2px solid #00ff00;
-            border-radius: 5px;
+        #results-title {
+            font-size: 18px;
+            color: #00ff00;
+            margin-bottom: 10px;
         }
 
-        #results img {
+        #results {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .image-container {
+            width: 300px; /* Tamaño aumentado para mejorar la visibilidad */
+            height: 300px;
+            background-color: #444;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-container p {
+            margin: 0;
+            font-weight: bold;
+            color: #00ff00;
+            margin-bottom: 5px;
+        }
+
+        .image-container img {
             max-width: 100%;
             max-height: 100%;
             display: none; /* Escondemos las imágenes inicialmente */
@@ -105,15 +123,17 @@
             <button id="analyze-button">Analizar imagen</button>
         </div>
         
-        <div id="results" class="hidden">
-            <h2>Resultados del análisis</h2>
-            <div class="image-container">
-                <p>Imagen Original</p>
-                <img id="originalImage" src="" alt="Imagen original">
-            </div>
-            <div class="image-container">
-                <p>Imagen Procesada</p>
-                <img id="resultImage" src="" alt="Imagen procesada">
+        <div id="results-section" class="hidden">
+            <div id="results-title">Resultados del análisis</div>
+            <div id="results">
+                <div class="image-container">
+                    <p>Imagen Original</p>
+                    <img id="originalImage" src="" alt="Imagen original">
+                </div>
+                <div class="image-container">
+                    <p>Imagen Procesada</p>
+                    <img id="resultImage" src="" alt="Imagen procesada">
+                </div>
             </div>
         </div>
         
@@ -139,15 +159,15 @@
                 contentType: false,
                 processData: false,
                 success: function(response) {
-                    $('#results').removeClass('hidden');
+                    $('#results-section').removeClass('hidden');
                     $('#error').addClass('hidden');
 
                     // Mostrar la imagen original y procesada
-                    $('#originalImage').attr('src', URL.createObjectURL(fileInput.files[0])).show(); // Imagen original
-                    $('#resultImage').attr('src', 'data:image/png;base64,' + response.image).show(); // Imagen procesada en base64
+                    $('#originalImage').attr('src', URL.createObjectURL(fileInput.files[0])).show();
+                    $('#resultImage').attr('src', 'data:image/png;base64,' + response.image).show();
                 },
                 error: function(xhr) {
-                    $('#results').addClass('hidden');
+                    $('#results-section').addClass('hidden');
                     $('#error').removeClass('hidden').text(xhr.responseJSON?.error || 'Ocurrió un error');
                 }
             });
