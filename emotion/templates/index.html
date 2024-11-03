@@ -88,6 +88,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            overflow: hidden; /* Asegura que la imagen no se salga del contenedor */
         }
 
         .image-container p {
@@ -100,6 +101,7 @@
         .image-container img {
             max-width: 100%;
             max-height: 100%;
+            object-fit: contain; /* Ajusta la imagen dentro del contenedor sin distorsionarla */
             display: none; /* Escondemos las imágenes inicialmente */
         }
 
@@ -175,3 +177,4 @@
     </script>
 </body>
 </html>
+
