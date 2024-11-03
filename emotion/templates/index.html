@@ -37,8 +37,17 @@
             <!-- Results Section -->
             <div id="results" class="hidden">
                 <h2 class="text-2xl font-semibold mb-4 text-gray-200">Resultados del análisis</h2>
-                <div class="border border-gray-700 rounded-lg p-4 bg-gray-700">
-                    <img id="resultImage" class="max-w-full h-auto mx-auto" src="" alt="Analysis Result">
+                <div class="flex justify-around">
+                    <!-- Original Image -->
+                    <div class="border border-gray-700 rounded-lg p-4 bg-gray-700">
+                        <p class="text-gray-200 text-center mb-2">Imagen Original</p>
+                        <img id="originalImage" class="max-w-full h-auto mx-auto" src="" alt="Original Image">
+                    </div>
+                    <!-- Processed Image -->
+                    <div class="border border-gray-700 rounded-lg p-4 bg-gray-700">
+                        <p class="text-gray-200 text-center mb-2">Imagen Procesada</p>
+                        <img id="resultImage" class="max-w-full h-auto mx-auto" src="" alt="Processed Image">
+                    </div>
                 </div>
             </div>
 
@@ -50,8 +59,7 @@
             </div>
 
             <!-- Error Display -->
-            <div id="error" class="hidden mt-4 p-4 bg-red-900 border border-red-700 text-red-200 rounded-lg">
-            </div>
+            <div id="error" class="hidden mt-4 p-4 bg-red-900 border border-red-700 text-red-200 rounded-lg"></div>
 
             <!-- Existing Images Section -->
             {% if images %}
@@ -102,7 +110,8 @@
                     success: function(response) {
                         hideLoading();
                         $('#results').removeClass('hidden');
-                        $('#resultImage').attr('src', 'data:image/png;base64,' + response.image);
+                        $('#originalImage').attr('src', response.original_image_url);  // URL de la imagen original
+                        $('#resultImage').attr('src', 'data:image/png;base64,' + response.processed_image);  // Imagen procesada en base64
                     },
                     error: function(xhr) {
                         hideLoading();
@@ -129,7 +138,8 @@
                 success: function(response) {
                     hideLoading();
                     $('#results').removeClass('hidden');
-                    $('#resultImage').attr('src', 'data:image/png;base64,' + response.image);
+                    $('#originalImage').attr('src', response.original_image_url);  // URL de la imagen original
+                    $('#resultImage').attr('src', 'data:image/png;base64,' + response.processed_image);  // Imagen procesada en base64
                 },
                 error: function(xhr) {
                     hideLoading();
