@@ -4,21 +4,111 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aplicación de Análisis Facial</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #1c1c1c;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #app {
+            width: 400px;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        h1 {
+            color: #00ff00;
+            margin-bottom: 20px;
+        }
+
+        #upload-section {
+            margin-bottom: 20px;
+        }
+
+        #file-upload {
+            display: none;
+        }
+
+        label[for="file-upload"] {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #2f4f4f;
+            color: #ffffff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #analyze-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #006400;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #analyze-button:hover {
+            background-color: #008000;
+        }
+
+        #results {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        #results img {
+            width: 100%;
+            max-width: 180px;
+            height: 180px;
+            object-fit: contain;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #error {
+            color: #ff0000;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
         <h1>Aplicación de análisis facial</h1>
+        
         <div id="upload-section">
-            <label for="file-upload">Subir nueva imagen</label>
+            <label for="file-upload">Selecciona una imagen</label>
             <input type="file" id="file-upload" accept="image/*">
             <button id="analyze-button">Analizar imagen</button>
         </div>
+        
         <div id="results" class="hidden">
             <h2>Resultados del análisis</h2>
-            <img id="originalImage" src="" alt="Imagen original">
-            <img id="resultImage" src="" alt="Imagen procesada">
+            <div>
+                <p>Imagen Original</p>
+                <img id="originalImage" src="" alt="Imagen original">
+            </div>
+            <div>
+                <p>Imagen Procesada</p>
+                <img id="resultImage" src="" alt="Imagen procesada">
+            </div>
         </div>
+        
         <div id="error" class="hidden"></div>
     </div>
 
