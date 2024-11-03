@@ -37,15 +37,8 @@
             <!-- Results Section -->
             <div id="results" class="hidden">
                 <h2 class="text-2xl font-semibold mb-4 text-gray-200">Resultados del análisis</h2>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="border border-gray-700 rounded-lg p-4 bg-gray-700">
-                        <h3 class="text-lg font-semibold text-gray-200 mb-2">Imagen Original</h3>
-                        <img id="originalImage" class="max-w-full h-auto mx-auto" src="" alt="Imagen Original">
-                    </div>
-                    <div class="border border-gray-700 rounded-lg p-4 bg-gray-700">
-                        <h3 class="text-lg font-semibold text-gray-200 mb-2">Imagen Procesada</h3>
-                        <img id="processedImage" class="max-w-full h-auto mx-auto" src="" alt="Imagen Procesada">
-                    </div>
+                <div class="border border-gray-700 rounded-lg p-4 bg-gray-700">
+                    <img id="resultImage" class="max-w-full h-auto mx-auto" src="" alt="Analysis Result">
                 </div>
             </div>
 
@@ -109,8 +102,7 @@
                     success: function(response) {
                         hideLoading();
                         $('#results').removeClass('hidden');
-                        $('#originalImage').attr('src', 'data:image/png;base64,' + response.original_image);
-                        $('#processedImage').attr('src', 'data:image/png;base64,' + response.processed_image);
+                        $('#resultImage').attr('src', 'data:image/png;base64,' + response.image);
                     },
                     error: function(xhr) {
                         hideLoading();
@@ -137,8 +129,7 @@
                 success: function(response) {
                     hideLoading();
                     $('#results').removeClass('hidden');
-                    $('#originalImage').attr('src', 'data:image/png;base64,' + response.original_image);
-                    $('#processedImage').attr('src', 'data:image/png;base64,' + response.processed_image);
+                    $('#resultImage').attr('src', 'data:image/png;base64,' + response.image);
                 },
                 error: function(xhr) {
                     hideLoading();
