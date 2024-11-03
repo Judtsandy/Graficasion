@@ -17,7 +17,7 @@
         }
 
         #app {
-            width: 400px;
+            width: 450px;
             padding: 20px;
             background-color: #333;
             border-radius: 10px;
@@ -68,13 +68,21 @@
             margin-top: 20px;
         }
 
-        #results img {
-            width: 100%;
-            max-width: 180px;
-            height: 180px;
-            object-fit: contain;
+        #results .image-container {
+            width: 200px;
+            height: 200px;
+            background-color: #444;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             border: 2px solid #00ff00;
             border-radius: 5px;
+        }
+
+        #results img {
+            max-width: 100%;
+            max-height: 100%;
+            display: none; /* Escondemos las imágenes inicialmente */
         }
 
         .hidden {
@@ -99,11 +107,11 @@
         
         <div id="results" class="hidden">
             <h2>Resultados del análisis</h2>
-            <div>
+            <div class="image-container">
                 <p>Imagen Original</p>
                 <img id="originalImage" src="" alt="Imagen original">
             </div>
-            <div>
+            <div class="image-container">
                 <p>Imagen Procesada</p>
                 <img id="resultImage" src="" alt="Imagen procesada">
             </div>
@@ -135,8 +143,8 @@
                     $('#error').addClass('hidden');
 
                     // Mostrar la imagen original y procesada
-                    $('#originalImage').attr('src', URL.createObjectURL(fileInput.files[0])); // Imagen original
-                    $('#resultImage').attr('src', 'data:image/png;base64,' + response.image); // Imagen procesada en base64
+                    $('#originalImage').attr('src', URL.createObjectURL(fileInput.files[0])).show(); // Imagen original
+                    $('#resultImage').attr('src', 'data:image/png;base64,' + response.image).show(); // Imagen procesada en base64
                 },
                 error: function(xhr) {
                     $('#results').addClass('hidden');
