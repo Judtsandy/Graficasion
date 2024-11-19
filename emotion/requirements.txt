@@ -1,6 +1,6 @@
 Flask==2.3.3
 Werkzeug==2.3.7
-mediapipe==0.10.4
+mediapipe==0.10.5
 opencv-python==4.8.1.78
 matplotlib==3.8.2
 numpy==1.26.1
