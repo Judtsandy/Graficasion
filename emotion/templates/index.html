@@ -3,177 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aplicación de Análisis Facial</title>
+    <title>Resultados del Modelo Random Forest</title>
     <style>
         body {
-            background-color: #1c1c1c;
-            color: #ffffff;
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', Arial, sans-serif;
+            background: linear-gradient(to bottom right, #3498db, #9b59b6);
+            color: #f4f4f4;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
         }
-
-        #app {
-            width: 700px; /* Ajustado para un tamaño mayor */
-            padding: 20px;
-            background-color: #333;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            text-align: center;
+        .container {
+            width: 90%;
+            max-width: 900px;
+            background-color: #ffffff;
+            color: #2c3e50;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            animation: fadeIn 1s ease-in-out;
         }
-
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
         h1 {
-            color: #00ff00;
+            text-align: center;
+            font-size: 28px;
+            color: #2c3e50;
             margin-bottom: 20px;
-        }
-
-        #upload-section {
-            margin-bottom: 20px;
-        }
-
-        #file-upload {
-            display: none;
-        }
-
-        label[for="file-upload"] {
+            border-bottom: 2px solid #3498db;
             display: inline-block;
-            padding: 10px 20px;
-            background-color: #2f4f4f;
-            color: #ffffff;
-            border-radius: 5px;
-            cursor: pointer;
+            padding-bottom: 10px;
         }
-
-        #analyze-button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            background-color: #006400;
-            color: #ffffff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
+        h2 {
+            font-size: 22px;
+            color: #34495e;
+            margin: 30px 0 10px;
         }
-
-        #analyze-button:hover {
-            background-color: #008000;
+        ul {
+            list-style: none;
+            padding: 0;
         }
-
-        #results-section {
-            margin-top: 20px;
-        }
-
-        #results-title {
-            font-size: 18px;
-            color: #00ff00;
-            margin-bottom: 10px;
-        }
-
-        #results {
+        li {
+            background: #ecf0f1;
+            margin: 8px 0;
+            padding: 12px 20px;
+            border-radius: 8px;
             display: flex;
             justify-content: space-between;
-            margin-top: 10px;
-        }
-
-        .image-container {
-            width: 300px; /* Tamaño aumentado para mejorar la visibilidad */
-            height: 300px;
-            background-color: #444;
-            border: 2px solid #00ff00;
-            border-radius: 5px;
-            display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: flex-start; /* Cambiado a flex-start para que el texto esté arriba */
-            overflow: hidden; /* Asegura que la imagen no se salga del contenedor */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
-        .image-container p {
-            margin: 0;
-            font-weight: bold;
-            color: #00ff00;
-            margin-bottom: 5px;
+        li span {
+            font-weight: normal;
+            color: #7f8c8d;
         }
-
-        .image-container img {
+        .img-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .img-container img {
             max-width: 100%;
-            max-height: 100%;
-            object-fit: contain; /* Ajusta la imagen dentro del contenedor sin distorsionarla */
-            display: none; /* Escondemos las imágenes inicialmente */
+            border-radius: 10px;
+            margin: 10px 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
-        .hidden {
-            display: none;
+        .img-container img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
         }
-
-        #error {
-            color: #ff0000;
-            margin-top: 10px;
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #bdc3c7;
         }
     </style>
 </head>
 <body>
-    <div id="app">
-        <h1>Aplicación de análisis facial</h1>
-        
-        <div id="upload-section">
-            <label for="file-upload">Selecciona una imagen</label>
-            <input type="file" id="file-upload" accept="image/*">
-            <button id="analyze-button">Analizar imagen</button>
+    <div class="container">
+        <h1>Resultados del Modelo de Regresión de Random Forest</h1>
+
+        <h2>Métricas Generadas por el Algoritmo</h2>
+        <ul>
+            <li>MSE (Entrenamiento): <span>{{ metrics.mse_train }}</span></li>
+            <li>MSE (Validación): <span>{{ metrics.mse_val }}</span></li>
+            <li>MSE (Test): <span>{{ metrics.mse_test }}</span></li>
+            <li>MAE (Entrenamiento): <span>{{ metrics.mae_train }}</span></li>
+            <li>MAE (Validación): <span>{{ metrics.mae_val }}</span></li>
+            <li>MAE (Test): <span>{{ metrics.mae_test }}</span></li>
+            <li>R² (Entrenamiento): <span>{{ metrics.r2_train }}</span></li>
+            <li>R² (Validación): <span>{{ metrics.r2_val }}</span></li>
+            <li>R² (Test): <span>{{ metrics.r2_test }}</span></li>
+        </ul>
+
+        <h2>Gráficas</h2>
+        <div class="img-container">
+            <img src="data:image/png;base64,{{ plot }}" alt="Gráfica Real vs Predicción">
+            <img src="/static/results/arbol_decision.png" alt="Árbol de Decisión">
+            <img src="/static/results/graf.png" alt="Gráfica Límites de Decisión">
         </div>
-        
-        <div id="results-section" class="hidden">
-            <div id="results-title">Resultados del análisis</div>
-            <div id="results">
-                <div class="image-container">
-                    <p>Imagen Original</p>
-                    <img id="originalImage" src="" alt="Imagen original">
-                </div>
-                <div class="image-container">
-                    <p>Imagen Procesada</p>
-                    <img id="resultImage" src="" alt="Imagen procesada">
-                </div>
-            </div>
-        </div>
-        
-        <div id="error" class="hidden"></div>
+
+        <footer>
+            <p>Desarrollado con ❤️ por Jonathan Hernández</p>
+        </footer>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $('#analyze-button').on('click', function () {
-            let fileInput = $('#file-upload')[0];
-            if (fileInput.files.length === 0) {
-                alert('Por favor, selecciona una imagen.');
-                return;
-            }
-
-            let formData = new FormData();
-            formData.append('file', fileInput.files[0]);
-
-            $.ajax({
-                url: '/analyze',
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    $('#results-section').removeClass('hidden');
-                    $('#error').addClass('hidden');
-
-                    // Mostrar la imagen original y procesada
-                    $('#originalImage').attr('src', URL.createObjectURL(fileInput.files[0])).show();
-                    $('#resultImage').attr('src', 'data:image/png;base64,' + response.image).show();
-                },
-                error: function(xhr) {
-                    $('#results-section').addClass('hidden');
-                    $('#error').removeClass('hidden').text(xhr.responseJSON?.error || 'Ocurrió un error');
-                }
-            });
-        });
-    </script>
 </body>
 </html>
